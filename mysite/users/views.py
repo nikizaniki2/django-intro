@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from social_network.models import Post
+from django.contrib.auth.decorators import login_required
+
 
 def register(request):
     if request.method == 'POST':
@@ -16,7 +18,21 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'users/register.html', {'form' : form})
 
-def profile(request, profile_pk):
+@login_required
+def profile(request, **kwargs):
+    if not kwargs:
+        user = User.objects.get(id = request.user.id)
+        posts = Post.objects.filter(author = request.user.id)
+
+        context = {
+        'posts': posts,
+        'title': user.get_username(),
+        'profile_pk' : request.user.id,
+        'username' : user.get_username()
+        }
+        return render(request, 'users/profile.html', context)
+    
+    profile_pk = kwargs.get("profile_pk")
     if request.user.is_authenticated:
         user = User.objects.get(id=profile_pk)
         posts = Post.objects.filter(author = user.id)

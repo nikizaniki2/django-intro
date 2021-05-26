@@ -2,10 +2,9 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 
 from . import views
-from social_network import views as sn_views
 
 urlpatterns = [
-    path('', sn_views.home, name='users'),
+    path('', views.profile, name='users'),
     path('<int:profile_pk>/', views.profile, name='profile_pk'),
     path('register/', views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),

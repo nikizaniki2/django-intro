@@ -7,10 +7,10 @@
     <article class="media content-section">
         <div class="media-body">
           <div class="article-metadata">
-            <a class="mr-2" href="{% url 'users' %}{{user.id}}">{{ post.author }}</a>
+            <a class="mr-2">{{ post.author }}</a>
             <small class="text-muted">{{ post.date|date:"F dS H:i" }}</small>
           </div>
-          <h3><a class="article-title">{{ post.title }}</a></h3>
+          <h3><a class="article-title" href="{% url 'sn-detail' post.id %}">{{ post.title }}</a></h3>
           <p class="article-content">{{ post.content }}</p>
         </div>
       </article>
