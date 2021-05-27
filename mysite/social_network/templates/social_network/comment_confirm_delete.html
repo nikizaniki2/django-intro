@@ -1,0 +1,16 @@
+{% extends "social_network/site_template.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Comment Remover 3000</legend>
+                <h2>Are you sure you want to delete "{{ object.content }}"</h2>
+            <div class="form-group">
+                <button class="btn btn-outline-danger" type="submit">Delete</button>
+                <a class="btn btn-outline-info" href="{% url 'sn-detail' object.post.id %}" type="submit">Cancel</a>
+            </div>
+            </fieldset>
+        </form>
+    </div>
+{% endblock content %}
