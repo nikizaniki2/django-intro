@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from .views import (PostListView, PostDetailView,
  PostCreateView, PostUpdateView, PostDeleteView,
@@ -16,4 +16,8 @@ urlpatterns = [
     path('post/<int:pk>/update', PostUpdateView.as_view(), name='sn-update'),
     path('post/<int:pk>/delete', PostDeleteView.as_view(), name='sn-delete'),
     path('about/', views.about, name='sn-about'),
+    path('restapi/', include([
+        path('', include('users.restapi.urls')),
+        path('', include('social_network.restapi.urls')),
+    ])),
 ]
