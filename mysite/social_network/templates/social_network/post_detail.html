@@ -18,7 +18,7 @@
           </div>
           <h3 class="article-title">{{ object.title }}</h3>
           <p class="article-content">{{ object.content }}</p>
-          <a class="btn btn-outline-info" href="{% url 'comment-create' object.id%}">Comment</a>
+          <a class="btn btn-outline-info mb-2" href="{% url 'comment-create' object.id%}">Comment</a>
           {% for comment in comments %}
           <p><a href="{% url 'users' %}{{ comment.author.id }}">{{ comment.author }}</a>: {{ comment }} <small class="text-muted">{{ post.date|date:"F dS H:i" }}</small></p>
           {% if comment.author == user %}

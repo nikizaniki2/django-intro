@@ -1,5 +1,3 @@
-from django.http import request
-from django.urls import reverse_lazy
 from django.shortcuts import render
 from .models import Post, Comment
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -13,7 +11,6 @@ def home(request):
     }
     return render(request, 'social_network/home.html', context)
 '''
-
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content']
@@ -101,15 +98,3 @@ def CommentDetailView(request):
 '''
 def about(request):
     return render(request, 'social_network/about.html')
-
-'''
-# serializers.py
-
-class PostSerializer(serializer.ModelSerializer):
-    model = Post
-
-
-class PostView(mixins.ModelMixin):
-    serializer = PostSerializer
-    permmissions = (IsAuthenticatedPermisssion,)
-'''
