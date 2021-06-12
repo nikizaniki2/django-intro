@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'comments.apps.CommentsConfig',
     'users.apps.UsersConfig',
     'social_network.apps.SocialNetworkConfig',
-    #'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

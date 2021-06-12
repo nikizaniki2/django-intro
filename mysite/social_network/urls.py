@@ -16,5 +16,6 @@ urlpatterns = [
     path('restapi/', include([
         path('', include('users.restapi.urls')),
         path('', include('social_network.restapi.urls')),
+        path('', include('comments.restapi.urls')),
     ])),
 ]
