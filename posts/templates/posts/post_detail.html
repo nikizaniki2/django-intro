@@ -1,0 +1,31 @@
+{% extends "posts/site_template.html" %}
+{% block content %}
+    <article class="media content-section">
+        <div class="media-body">
+          <div class="article-metadata">
+            {% if user.is_authenticated%}
+            <a class="mr-2" href="{% url 'users' %}{{object.author.id}}">{{ object.author }}</a>
+          {% else %}
+          <a class="mr-2" href="{% url 'login' %}">{{ object.author }}</a>
+          {% endif %}
+            <small class="text-muted">{{ object.date|date:"F dS H:i" }}</small>
+            {% if object.author == user %}
+            <div>
+              <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'sn-update' object.id %}">Update</a>
+              <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'sn-delete' object.id %}">Delete</a>
+            </div>
+            {% endif %}
+          </div>
+          <h3 class="article-title">{{ object.title }}</h3>
+          <p class="article-content">{{ object.content }}</p>
+          <a class="btn btn-outline-info" href="{% url 'comment-create' object.id%}">Comment</a>
+          {% for comment in comments %}
+          <p><a href="{% url 'users' %}{{ comment.author.id }}">{{ comment.author }}</a>: {{ comment }} <small class="text-muted">{{ post.date|date:"F dS H:i" }}</small></p>
+          {% if comment.author == user %}
+          <a class="text-muted" href="{% url 'comment-update' comment.pk %}">Edit</a>
+          <a class="text-muted" href="{% url 'comment-delete' comment.pk %}">Delete</a>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </article>
+{% endblock content %}
