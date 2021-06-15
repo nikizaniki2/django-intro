@@ -1,7 +1,7 @@
 import pytest
 from rest_framework.test import APIClient
 
-from ...models import Post
+from comments.models import Post
 from django.contrib.auth.models import User
 
 
@@ -52,7 +52,7 @@ def test_list_posts(client, post_factory):
     post_factory(title="First")
     post_factory(title="Second")
 
-    response = client.get('/restapi/posts/')
+    response = client.get('/restapi/post/')
     assert response.status_code == 200
 
     response_posts = response.data
