@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-pfdmmdu@5+e#5#u96*ylb88nn0)!2o=e5hb2rh_93dlds$g1t#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['server.domain.net', 'localhost', 'site.domain.net']
 
 
 # Application definition
@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'comments.apps.CommentsConfig',
     'users.apps.UsersConfig',
     'posts.apps.PostsConfig',
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,7 +49,8 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ],
+    ]
+    ,
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ]
@@ -62,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -143,3 +146,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'sn-home'
 LOGIN_URL = "login"
+
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = [
+  'http://site.domain.net',
+  'http://server.domain.net',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+  'site.domain.net'
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+SESSION_COOKIE_DOMAIN = '.domain.net' #for cross domain cookies
