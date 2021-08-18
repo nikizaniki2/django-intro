@@ -33,20 +33,3 @@ class PostCommentViewSet(viewsets.ViewSet):
         #     return Response({"comments":[]})
         serializer = CommentSerializer(queryset, many=True)
         return Response(serializer.data)
-
-#     [
-#     {
-#         "id": 2,
-#         "content": "First comment",
-#         "date": "2021-07-28T13:09:15.135053+03:00",
-#         "post": 5,
-#         "author": 1
-#     },
-#     {
-#         "id": 3,
-#         "content": "Second one",
-#         "date": "2021-07-28T13:09:23.259094+03:00",
-#         "post": 6,
-#         "author": 1
-#     }
-# ]
