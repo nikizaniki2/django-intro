@@ -10,7 +10,7 @@ from rest_framework.decorators import api_view
 
 # ViewSets define the view behavior.
 class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().order_by('-date')
     serializer_class = PostSerializer
     
     def perform_create(self, serializer):

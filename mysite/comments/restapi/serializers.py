@@ -9,7 +9,7 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 # Serializers define the API representation.
 class CommentSerializer(serializers.ModelSerializer):
-    author = AuthorSerializer()
+    author = AuthorSerializer(required=False)
     class Meta:
         model = Comment
         fields = ['id', 'content', 'date', 'author', 'post']

@@ -10,9 +10,8 @@ router.register(r'post', PostViewSet)
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 
-user_list = PostCommentViewSet.as_view({'get': 'comments'})
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('post/<int:pk>/comments', user_list, name='post-comments'),
+    path('post/<int:pk>/comments', PostCommentViewSet.as_view({'get': 'comments'}), name='post-comments'),
 ]
