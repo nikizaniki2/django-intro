@@ -12,14 +12,8 @@ def CurrentUserView(request):
         'username': user.username,
     })
 
-@api_view(['GET'])
-def UserPostsView(request, pk):
-    posts = Post.objects.filter(author=pk).values('id', 'content', 'date', 'author')
-
-    return Response(posts)
-
-class UserPostsViewClass(viewsets.ViewSet):
-    def posts(self, request, pk):
-        queryset = Post.objects.filter(author=pk)
-        serializer = UserPostsSerializer(queryset, many=True)
-        return Response(serializer.data)
+class UserPostsView(viewsets.ModelViewSet):
+    def get_queryset(self):
+        author_pk = self.kwargs['pk']
+        return Post.objects.filter(author=author_pk)
+    serializer_class = UserPostsSerializer

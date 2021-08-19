@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
-from .views import CurrentUserView, UserPostsView, UserPostsViewClass
+from .views import CurrentUserView, UserPostsView
 
 # Serializers define the API representation.
 class UserSerializer(serializers.ModelSerializer):
@@ -23,5 +23,5 @@ router.register(r'user', UserViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('user/current', CurrentUserView, name='current-user'),
-    path('user/<int:pk>/posts', UserPostsViewClass.as_view({'get': 'posts'}), name='user-posts'),
+    path('user/<int:pk>/posts', UserPostsView.as_view({'get': 'list'}), name='user-posts'),
 ]
