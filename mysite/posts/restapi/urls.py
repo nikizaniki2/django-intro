@@ -13,5 +13,5 @@ router.register(r'post', PostViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('post/<int:pk>/comments', PostCommentViewSet.as_view({'get': 'comments'}), name='post-comments'),
+    path('post/<int:pk>/comments', PostCommentViewSet.as_view({'get': 'list'}), name='post-comments'),
 ]
