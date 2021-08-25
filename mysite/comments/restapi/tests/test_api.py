@@ -55,7 +55,8 @@ def test_list_posts(client, post_factory):
     response = client.get('/restapi/post/')
     assert response.status_code == 200
 
-    response_posts = response.data
+    #responses are now different due to pagination
+    response_posts = response.data['results']
     assert len(response_posts) == 2
     assert any(map(lambda post: post.get("title") == "First", response_posts))
     assert any(map(lambda post: post.get("title") == "Second", response_posts))
