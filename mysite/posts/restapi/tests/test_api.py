@@ -84,3 +84,39 @@ def test_delete_perm(client, post_factory):
 
     assert response.status_code == 204
     assert Post.objects.filter(title="Example").exists() == False
+
+def test_post_pagination(client, post_factory):
+    posts_amount = 20
+    pagination_by_amount = 5
+
+    page_count = round(posts_amount/pagination_by_amount)
+    
+    # create posts
+    for i in range(posts_amount):
+        post_factory(content="Test Post {}".format(i))
+    
+    # get post data
+    post_response = client.get('/restapi/post/')
+    post_response = post_response.data
+
+    # test post amount
+    assert post_response['count'] == posts_amount
+
+    # test post per page
+    assert len(post_response['results']) == pagination_by_amount
+
+    # next page test (pagination)
+    post_response = client.get(post_response['next'])
+    post_response = post_response.data
+    assert len(post_response['results']) == pagination_by_amount
+
+    # Test next page end
+    post_response = client.get('/restapi/post/')
+    post_response = post_response.data
+    
+    for page_number in range(page_count-1):
+        url = 'http://testserver/restapi/post/?page='
+        assert post_response['next'] == url + str(page_number + 2)
+        post_response = client.get(post_response['next'])
+        post_response = post_response.data
+    assert post_response['next'] == None
